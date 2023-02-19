@@ -23,6 +23,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// app.use("/main.*.hot-update.json", (req, res) => {
+//   proxy.web(req, res);
+// });
+
 // Security Middleware
 if (!isProduction) {
   // Enable CORS only in development because React will be on the React
