@@ -1,18 +1,20 @@
+const debug = require('debug');
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
-const cors = require("cors");
 const csurf = require("csurf");
+const cors = require("cors");
 const { isProduction } = require("./config/keys");
 
-require('./models/User');
 
+require('./models/User');
+require('./config/passport');
+
+const passport = require('passport');
 const usersRouter = require('./routes/api/users');
 const tweetsRouter = require("./routes/api/tweets");
 const csrfRouter = require("./routes/api/csrf");
 
-const debug = require('debug');
 
 const app = express();
 
@@ -26,6 +28,7 @@ if (!isProduction) {
   // Enable CORS only in development because React will be on the React
   // development server (http://localhost:3000). (In production, React files
   // will be served statically on the Express server.)
+  app.use(passport.initialize());
   app.use(cors());
 }
 
